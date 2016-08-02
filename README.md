@@ -9,7 +9,7 @@ Shows the time left in the servers hostname
 
 # Installation:
 1. Copy the .smx to your addons/sourcemod/plugins folder.
-2. Restart your server.Optional:
+2. Restart your server.
 3. Change settings in cfg/sourcemod/.cfg
 
 # Usage:
