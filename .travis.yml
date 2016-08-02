@@ -29,7 +29,7 @@ before_script:
     - cd addons/sourcemod/scripting/
     - chmod +x spcomp
     - PATH+=":$PWD"
-		
+
     - cd ../../..
 
 script:
