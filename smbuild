@@ -1,0 +1,8 @@
+Plugin(source='scripting/timeleft-in-hostname.sp')
+
+Package(name='timeleft-in-hostname',
+	plugins=['timeleft-in-hostname'],
+	filegroups={
+		'.': ['README.md', 'LICENSE'],
+	},
+)
