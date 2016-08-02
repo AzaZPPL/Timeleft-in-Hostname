@@ -14,4 +14,5 @@ Shows the time left in the servers hostname
 
 # Usage:
 You can either add `{{timeleft}}` in your hostname and it will replace it with the time thats left
+
 Or you dont add anything and it will put the timeleft add the end of the hostname.
