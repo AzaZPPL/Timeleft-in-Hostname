@@ -23,17 +23,14 @@ char gC_Seconds[5];
 
 public void OnPluginStart()
 {
-	gCV_Hostname = FindConVar("hostname");
-	
-	gCV_UpdateTime = CreateConVar("tih_update", "5.0", "Value: Float\nMin: 1.0\nUpdates the hostname every x.x seconds.", 0, true, 1.0);
+	gCV_UpdateTime = CreateConVar("tih_update", "5.0", "Updates the hostname every x.x seconds.", 0, true, 1.0);
 	
 	AutoExecConfig(true);
 }
 
 public void OnMapStart()
 {
-	GetConVarString(gCV_Hostname, gC_OldHostname, 250);
-	
+	CreateTimer(1.0, GetHostname);
 	CreateTimer(gCV_UpdateTime.FloatValue, SetHostnameTime, INVALID_HANDLE, TIMER_REPEAT);
 }
 
@@ -74,6 +71,14 @@ public Action SetHostnameTime(Handle h_timer)
 	gCV_Hostname.SetString(gC_NewHostname);
 	
 	return Plugin_Continue;
+}
+
+public Action GetHostname (Handle h_timer)
+{
+	gCV_Hostname = FindConVar("hostname");
+	gCV_Hostname.GetString(gC_OldHostname, 250);
+	
+	return Plugin_Stop;
 }
 
 public void OnMapEnd()
