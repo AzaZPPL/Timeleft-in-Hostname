@@ -7,7 +7,7 @@ public Plugin myinfo =
 	name = "Timeleft-in-Hostname", 
 	author = "AzaZPPL", 
 	description = "Timeleft in server title or hostname", 
-	version = "1.0", 
+	version = "1.1", 
 	url = "https://github.com/AzaZPPL/Timeleft-in-Hostname"
 };
 
@@ -43,28 +43,21 @@ public Action SetHostnameTime(Handle h_timer)
 		return Plugin_Handled;
 	}
 	
-	// Check if the time is less than 10. If so add a 0 to the time strings. Else just set the times
-	if ((gI_Timeleft / 60) < 10)
-		Format(gC_Minutes, sizeof(gC_Minutes), "0%i", gI_Timeleft / 60);
-	else
-		Format(gC_Minutes, sizeof(gC_Minutes), "%i", gI_Timeleft / 60);
-	
-	if ((gI_Timeleft % 60) < 10)
-		Format(gC_Seconds, sizeof(gC_Seconds), "0%i", gI_Timeleft % 60);
-	else
-		Format(gC_Seconds, sizeof(gC_Seconds), "%i", gI_Timeleft % 60);
+	// Set time. If time is less than 10 add a 0.
+	FormatEx(gC_Minutes, sizeof(gC_Minutes), "%s%i", ((gI_Timeleft / 60) < 10)? "0" : "", gI_Timeleft / 60);
+	FormatEx(gC_Seconds, sizeof(gC_Seconds), "%s%i", ((gI_Timeleft % 60) < 10)? "0" : "", gI_Timeleft % 60);
 	
 	// Check if {{timeleft}} is filled in and replace it with time
-	if (StrContains(gC_OldHostname, "{{timeleft}}") > 0) {
+	if (StrContains(gC_OldHostname, "{{timeleft}}") >= 0) {
 		char C_Time[10];
 		
-		Format(C_Time, sizeof(C_Time), "%s:%s", gC_Minutes, gC_Seconds);
+		FormatEx(C_Time, sizeof(C_Time), "%s:%s", gC_Minutes, gC_Seconds);
 		gC_NewHostname = gC_OldHostname;
 		
 		ReplaceString(gC_NewHostname, sizeof(gC_NewHostname), "{{timeleft}}", C_Time);
 	} else {
 		// Making the new hostname
-		Format(gC_NewHostname, sizeof(gC_NewHostname), "%s %s:%s", gC_OldHostname, gC_Minutes, gC_Seconds);
+		FormatEx(gC_NewHostname, sizeof(gC_NewHostname), "%s %s:%s", gC_OldHostname, gC_Minutes, gC_Seconds);
 	}
 	
 	// Set the new hostname

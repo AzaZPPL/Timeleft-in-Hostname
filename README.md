@@ -17,3 +17,15 @@ Optional:
 # Usage:
 You can either add `{{timeleft}}` in your hostname and it will replace it with the time thats left
 Or you dont add anything and it will put the timeleft add the end of the hostname.
+
+# Changelog:
+
+# 1.1
+--
+- [x] Fixed an issue where the plugin had started but the hostname was not yet loaded into convar `hostname`
+- [x] Fixed an issue where the `{{timeleft}}` was not being changed if it was at the beginning of the hostname
+- [x] Increased speed by using `FormatEx` instead of `Format`
+
+# 1.0
+--
+- [x] Initial Release.
