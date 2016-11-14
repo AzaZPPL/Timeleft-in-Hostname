@@ -34,7 +34,6 @@ public void OnMapStart()
 	if(!gC_OldHostname[0]) {
 		CreateTimer(1.0, GetHostname);
 	}
-	CreateTimer(gCV_UpdateTime.FloatValue, SetHostnameTime, INVALID_HANDLE, TIMER_REPEAT);
 }
 
 public Action SetHostnameTime(Handle h_timer)
@@ -43,12 +42,15 @@ public Action SetHostnameTime(Handle h_timer)
 	
 	// Check if the time isnt going into minus. This can happen when the map has yet to change and the timeleft keeps counting down
 	if (gI_Timeleft <= -1) {
-		return Plugin_Handled;
+		gC_Minutes = "00";
+		gC_Seconds = "00";
+	} else {
+		// Set time. If time is less than 10 add a 0.
+		FormatEx(gC_Minutes, sizeof(gC_Minutes), "%s%i", ((gI_Timeleft / 60) < 10)? "0" : "", gI_Timeleft / 60);
+		FormatEx(gC_Seconds, sizeof(gC_Seconds), "%s%i", ((gI_Timeleft % 60) < 10)? "0" : "", gI_Timeleft % 60);
 	}
 	
-	// Set time. If time is less than 10 add a 0.
-	FormatEx(gC_Minutes, sizeof(gC_Minutes), "%s%i", ((gI_Timeleft / 60) < 10)? "0" : "", gI_Timeleft / 60);
-	FormatEx(gC_Seconds, sizeof(gC_Seconds), "%s%i", ((gI_Timeleft % 60) < 10)? "0" : "", gI_Timeleft % 60);
+
 	
 	// Check if {{timeleft}} is filled in and replace it with time
 	if (StrContains(gC_OldHostname, "{{timeleft}}") >= 0) {
@@ -73,19 +75,19 @@ public Action GetHostname (Handle h_timer)
 {
 	gCV_Hostname = FindConVar("hostname");
 	gCV_Hostname.GetString(gC_OldHostname, 250);
+	
+	CreateTimer(gCV_UpdateTime.FloatValue, SetHostnameTime, INVALID_HANDLE, TIMER_REPEAT);
 }
 
 public void OnMapEnd()
 {
 	// Set the old hostname without anything in the title.
 	gCV_Hostname.SetString(gC_OldHostname);
-	gC_OldHostname[0] = EOS;
 	gCV_Hostname.Close();
 }
 
 public void OnPluginEnd()
 {
 	gCV_Hostname.SetString(gC_OldHostname);
-	gC_OldHostname[0] = EOS;
 	gCV_Hostname.Close();
 } 
