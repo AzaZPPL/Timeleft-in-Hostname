@@ -30,7 +30,10 @@ public void OnPluginStart()
 
 public void OnMapStart()
 {
-	CreateTimer(1.0, GetHostname);
+	// Check if its empty.
+	if(!gC_OldHostname[0]) {
+		CreateTimer(1.0, GetHostname);
+	}
 	CreateTimer(gCV_UpdateTime.FloatValue, SetHostnameTime, INVALID_HANDLE, TIMER_REPEAT);
 }
 
@@ -70,8 +73,6 @@ public Action GetHostname (Handle h_timer)
 {
 	gCV_Hostname = FindConVar("hostname");
 	gCV_Hostname.GetString(gC_OldHostname, 250);
-	
-	return Plugin_Stop;
 }
 
 public void OnMapEnd()
