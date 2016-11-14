@@ -79,12 +79,13 @@ public void OnMapEnd()
 {
 	// Set the old hostname without anything in the title.
 	gCV_Hostname.SetString(gC_OldHostname);
+	gC_OldHostname[0] = EOS;
 	gCV_Hostname.Close();
 }
 
 public void OnPluginEnd()
 {
-	// Set the old hostname without anything in the title.
 	gCV_Hostname.SetString(gC_OldHostname);
+	gC_OldHostname[0] = EOS;
 	gCV_Hostname.Close();
 } 
