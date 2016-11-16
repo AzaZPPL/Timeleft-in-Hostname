@@ -7,7 +7,7 @@ public Plugin myinfo =
 	name = "Timeleft-in-Hostname", 
 	author = "AzaZPPL", 
 	description = "Timeleft in server title or hostname", 
-	version = "1.3", 
+	version = "1.4", 
 	url = "https://github.com/AzaZPPL/Timeleft-in-Hostname"
 };
 
