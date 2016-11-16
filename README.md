@@ -18,6 +18,18 @@ Or you dont add anything and it will put the timeleft add the end of the hostnam
 
 # Changelog:
 These are the changes
+## 1.4
+- [x] New: when server is hibernating fallback to `mp_timelimit`
+- [x] Fix: when a map change occurs the timer would not stop and would infinitely add more timers
+- [x] Fix: when a map change occurs the time would not be set fast enough so you would see `{{timeleft}}` or no time.
+
+## 1.3
+- [x] New: when the time is lower than 0 or is not set it will return the values back to `00:00`
+- [x] Fix: Fix the strange `29:58 15:23` issue
+
+## 1.2
+- [x] Fix: Timeleft would get the wrong hostname after a map restart was initiated.
+
 ## 1.1
 - [x] Fixed an issue where the plugin had started but the hostname was not yet loaded into convar `hostname`
 - [x] Fixed an issue where the `{{timeleft}}` was not being changed if it was at the beginning of the hostname
