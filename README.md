@@ -18,6 +18,8 @@ Or you dont add anything and it will put the timeleft add the end of the hostnam
 
 # Changelog:
 These are the changes
+## 1.5
+- [x] Fix: Use `OnConfigsExecuted` instead of `OnMapStart`
 ## 1.4
 - [x] New: when server is hibernating fallback to `mp_timelimit`
 - [x] Fix: when a map change occurs the timer would not stop and would infinitely add more timers

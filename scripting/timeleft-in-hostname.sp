@@ -7,7 +7,7 @@ public Plugin myinfo =
 	name = "Timeleft-in-Hostname", 
 	author = "AzaZPPL", 
 	description = "Timeleft in server title or hostname", 
-	version = "1.4", 
+	version = "1.5", 
 	url = "https://github.com/AzaZPPL/Timeleft-in-Hostname"
 };
 
@@ -32,13 +32,12 @@ public void OnPluginStart()
 	AutoExecConfig(true);
 }
 
-public void OnMapStart()
+public void OnConfigsExecuted()
 {
 	// Check if its empty.
 	if(!gC_OldHostname[0]) {
-		// Timer needed because for some reason when map is started hostname is not loaded yet.
-		CreateTimer(0.2, GetConvars);
-		CreateTimer(0.3, SetHostnameTime);
+		GetConvars();
+		SetHostnameTime(INVALID_HANDLE);
 	}
 	
 	g_Timer = CreateTimer(gCV_UpdateTime.FloatValue, SetHostnameTime, INVALID_HANDLE, TIMER_REPEAT);
@@ -85,7 +84,7 @@ public Action SetHostnameTime(Handle h_timer)
 	return Plugin_Continue;
 }
 
-public Action GetConvars (Handle h_timer)
+public Action GetConvars ()
 {
 	gCV_Hostname = FindConVar("hostname");
 	gCV_Hostname.GetString(gC_OldHostname, 250);
